@@ -2,15 +2,15 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 
 //Links to corresponding js files
-const employee = require('lib/employee');
-const engineer = require('lib/engineer');
-const intern = require('lib/intern');
-const manager = require('lib/manager');
-const Engineer = require('./lib/engineer');
+const employee = require('./lib/employee');
+const engineer = require('./lib/engineer');
+const intern = require('./lib/intern');
+const manager = require('./lib/manager');
 
-const teamMember = [];
 
-function createNewEmployee() {
+const newTeamMember = [];
+
+function createNewTeammember() {
     inquirer.prompt([
         {
         type: "list",
@@ -18,14 +18,14 @@ function createNewEmployee() {
         message: "Who are you adding to your team?",
         choices: ["Manager", "Engineer", "Intern", "NA"],
         },
-    ]).then(val => {
-        if (role === "Manager") {
+    ]).then(name => {
+        if (name.role === "Manager") {
             addManager();
-        }if (role === "Engineer"){
+        }if (name.role === "Engineer"){
             addEngineer();
-        }if (role === "Intern"){
+        }if (name.role === "Intern"){
             addIntern();
-        }if (role === "NA"){
+        }if (name.role === "NA"){
             generateHTML();
         };
     });
@@ -56,9 +56,9 @@ function addEngineer(){
         },
 
     ]).then(function(answer){
-        let engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
+        let engineer = new engineer(answer.engineerName, answer.engineerId, answer.engineerEmail, answer.engineerGithub)
         employee.push(engineer);
-        createNewEmployee();     
+        createNewTeammember();     
     });
 }
 
@@ -87,9 +87,9 @@ function addIntern(){
         },
 
     ]).then(function(answer){
-        let intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+        let intern = new intern(answer.internName, answer.internId, answer.internEmail, answer.internSchool)
         employee.push(intern);
-        createNewEmployee();     
+        createNewTeammember();     
     });
 }
 
@@ -117,8 +117,17 @@ function addManager(){
         },
 
     ]).then(function(answer){
-        let intern = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerSchool)
+        let manager = this.Manager (answer.managerName, answer.managerId, answer.managerEmail, answer.officeNumber)
         employee.push(manager);
-        createNewEmployee();     
+        createNewTeammember();     
     });
 }
+
+function generateHTML() {
+    fs.writeFile(fileName, data, function (err){
+        if (err) {
+            throw err;
+        }
+    });
+};
+createNewTeammember();
