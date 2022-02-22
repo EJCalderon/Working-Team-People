@@ -31,6 +31,7 @@ function createNewEmployee() {
     });
 }
 
+
 function addEngineer(){
     inquirer.prompt([
         {
@@ -57,6 +58,67 @@ function addEngineer(){
     ]).then(function(answer){
         let engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
         employee.push(engineer);
+        createNewEmployee();     
+    });
+}
+
+
+function addIntern(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "internName",
+            message: "What is the intern's' name?"
+        },
+        {
+            type:"input",
+            name: "engineerId", 
+            message: "What is the engineer's' id #?",
+        },
+        {
+            type:"input",
+            name: "internEmail", 
+            message: "What is the intern's' email?",      
+        },
+        {
+            type:"input",
+            name: "internSchool", 
+            message: "What is the intern's' school?",
+        },
+
+    ]).then(function(answer){
+        let intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+        employee.push(intern);
+        createNewEmployee();     
+    });
+}
+
+function addManager(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "managerName",
+            message: "What is the manager's' name?"
+        },
+        {
+            type:"input",
+            name: "managerId", 
+            message: "What is the manager's' id #?",
+        },
+        {
+            type:"input",
+            name: "managerEmail", 
+            message: "What is the manager's' email?",      
+        },
+        {
+            type:"input",
+            name: "managerOfficeNumber", 
+            message: "What is the manager's' office number?",
+        },
+
+    ]).then(function(answer){
+        let intern = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerSchool)
+        employee.push(manager);
         createNewEmployee();     
     });
 }
